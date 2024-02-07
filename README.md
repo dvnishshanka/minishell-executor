@@ -48,7 +48,7 @@ cat < hello.txt
 
 **$$**
 
-Special variable that represents the process ID (PID) of the currently running shell or script
+- Special variable that represents the process ID (PID) of the currently running shell or script
 
 **export**
 
