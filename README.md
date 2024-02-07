@@ -46,8 +46,7 @@ This is the end
 cat < hello.txt
 ```
 
-**$$**
-
+**$$ Variable**
 - Special variable that represents the process ID (PID) of the currently running shell or script
 
 **export**
