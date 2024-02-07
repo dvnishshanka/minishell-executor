@@ -7,11 +7,12 @@ For each directory, we construct the full path of the command and check if it's 
 If the command is found and executable, we execute it using "execve".
 On success, execve() does not return, on error -1 is returned. That's why we need to call it inside the child process.
     int execve(const char *pathname, char *const _Nullable argv[], char *const _Nullable envp[])
+X_OK Flag meaning test for execute/search permission.
 
 The input command can be in the form of 'ls' or '/bin/ls'
 In the 'ls' form we search through executables by constructing possible full paths.
 */
-static int fork_cmd(t_minishell *minishell, t_simple_cmds   *cmd)
+static int execute_cmd(t_minishell *minishell, t_simple_cmds   *cmd)
 {
     pid_t   pid;
     int i;
@@ -48,6 +49,6 @@ int execute(t_minishell *minishell, t_simple_cmds   *cmd)
     if (cmd->builtin != NULL)
         cmd->builtin(minishell, cmd);
     else
-        fork_cmd(minishell, cmd);
+        execute_cmd(minishell, cmd);
     return (0);
 }
