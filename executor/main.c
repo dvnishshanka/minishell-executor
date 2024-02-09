@@ -111,7 +111,7 @@ int main(int argc, char **argv, char **env)
     simple_cmd_11->num_redirections = 0;
     simple_cmd_11->hd_file_name = NULL;
     simple_cmd_11->next = simple_cmd_12;
-    simple_cmd_11->prev = NULL;
+    simple_cmd_11->prev = simple_cmd_13;
 
     simple_cmd_12->num_redirections = 0;
     simple_cmd_12->hd_file_name = NULL;
@@ -120,7 +120,7 @@ int main(int argc, char **argv, char **env)
 
     simple_cmd_13->num_redirections = 0;
     simple_cmd_13->hd_file_name = NULL;
-    simple_cmd_13->next = NULL;
+    simple_cmd_13->next = simple_cmd_11;
     simple_cmd_13->prev = simple_cmd_12;
      // PIPE TESTING END
 
