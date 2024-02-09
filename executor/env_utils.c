@@ -1,5 +1,6 @@
 #include "../executor.h"
 
+/* Add executable directory paths*/
 int    add_paths(t_minishell **shell_1)
 {
     int     i;

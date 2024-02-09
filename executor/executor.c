@@ -12,7 +12,7 @@ X_OK Flag meaning test for execute/search permission.
 The input command can be in the form of 'ls' or '/bin/ls'
 In the 'ls' form we search through executables by constructing possible full paths.
 */
-static int execute_cmd(t_minishell *minishell, t_simple_cmds   *cmd)
+static int execute_executables(t_minishell *minishell, t_simple_cmds   *cmd)
 {
     pid_t   pid;
     int i;
@@ -42,13 +42,66 @@ static int execute_cmd(t_minishell *minishell, t_simple_cmds   *cmd)
     return (0);
 }
 
+/* Checks whether command is a builtin one or not*/
+static int    execute_commands(t_minishell *minishell, t_simple_cmds   *cmd)
+{
+    if (cmd->builtin != NULL)
+        return (cmd->builtin(minishell, cmd));
+    else
+        return (execute_executables(minishell, cmd));
+}
+
 /*
+PIPE
+    fd[0] for the read end of pipe
+    fd[1] for the write end of pipe
+
+dup2
+    int dup2(int oldfd, int newfd);
+    The file descriptor newfd is adjusted so that it now refers to the same open file description as oldfd
 */
 int execute(t_minishell *minishell, t_simple_cmds   *cmd)
 {
-    if (cmd->builtin != NULL)
-        cmd->builtin(minishell, cmd);
+    int fd[minishell->pipe_count][2];
+    pid_t pid[minishell->pipe_count + 1];
+    int i;
+
+    i = 0;
+    if (minishell->pipe_count > 0)
+    {
+        while (i < minishell->pipe_count)
+        {
+            if (pipe(fd[i]) == -1)
+                print_err("Error occurred in PIPES.");
+            i ++;
+        }
+        i = 0;
+        while (i < (minishell->pipe_count + 1) && cmd)
+        {
+            pid[i] = fork();
+            if (pid[i] == -1)
+                return (print_err("Error occurred in forking."));
+            else if (pid[i] == 0)
+            {
+                if (i == 0)
+                    dup2(fd[i][1], STDOUT_FILENO);
+                else if (i == (minishell->pipe_count))
+                    dup2(fd[i - 1][0], STDIN_FILENO);
+                else
+                { 
+                    dup2(fd[i - 1][0], STDIN_FILENO);
+                    dup2(fd[i][1], STDOUT_FILENO);
+                }
+                close_fds(fd, minishell->pipe_count);
+                return (execute_commands(minishell, cmd));
+            }
+            cmd = cmd->next;
+            i ++;
+        }
+        close_fds(fd, minishell->pipe_count);
+        wait_c_processes(pid, minishell->pipe_count);
+    }
     else
-        execute_cmd(minishell, cmd);
+        return (execute_commands(minishell, cmd));
     return (0);
 }

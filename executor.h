@@ -24,6 +24,7 @@ typedef struct s_simple_cmds
 /*
 paths are where the executables are located.
 	eg: /usr/local/sbin/
+pipe_count is the no of pipes.
 */
 typedef struct s_minishell
 {
@@ -33,10 +34,15 @@ typedef struct s_minishell
 	// char	*pwd;
 	// char	*old_pwd;
 	char	**paths;
+	int		pipe_count;
 }   t_minishell;
 
 // executor.c
 int execute(t_minishell *minishell, t_simple_cmds   *cmd);
+
+// pipe_utils.c
+void    close_fds(int (*fd)[2], int pipe_count);
+void  wait_c_processes(pid_t *pid, int pipe_count);
 
 // other_utils.c
 void    print_cmd(t_simple_cmds *cmd);

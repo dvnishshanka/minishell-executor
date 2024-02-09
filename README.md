@@ -61,3 +61,5 @@ echo $MY_VARIABLE
 
 **Pipe**
 - https://www.youtube.com/watch?v=Mqb2dVRe0uo
+- https://www.youtube.com/watch?v=6xbLgZpOBi8
+- https://www.youtube.com/watch?v=NkfIUo_Qq4c

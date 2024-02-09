@@ -35,12 +35,26 @@ static void    free_minishell(t_minishell  **shell)
 
 void    free_all(t_minishell  **shell, t_simple_cmds  **cmd)
 {
-    free_cmd(cmd);
+    t_simple_cmds   *tmp;
+    t_simple_cmds   *head;
+
+    if (!cmd || !(*cmd))
+        return ;
+    tmp = (*cmd);
+    head = (*cmd);
+    while (*cmd)
+    {
+        tmp = (*cmd)->next;
+        free_cmd(cmd);
+        *cmd = tmp;
+        if (*cmd == head)
+            break;
+    }
     free_minishell(shell);
 }
 
 int print_err(char  *msg)
 {
-    printf("%s\n", msg);
+    perror(msg);
     return (1);
 }

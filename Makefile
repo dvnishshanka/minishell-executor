@@ -11,6 +11,7 @@ BUILTIN_DIR = builtin/
 # define the C source files
 SRCS = 	$(EXECUTOR_DIR)main.c	\
 		$(EXECUTOR_DIR)executor.c	\
+		$(EXECUTOR_DIR)pipe_utils.c	\
 		$(EXECUTOR_DIR)other_utils.c	\
 		$(EXECUTOR_DIR)env_utils.c	\
 		$(BUILTIN_DIR)echo.c
