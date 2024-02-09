@@ -1,60 +1,60 @@
 #include "../executor.h"
 
 /* Print the command */
-void    print_cmd(t_simple_cmds *cmd)
+void	print_cmd(t_simple_cmds *cmd)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (cmd->str[i])
-    {
-        printf("%d %s\n", i, cmd->str[i]);
-        i ++;
-    }
+	i = 0;
+	while (cmd->str[i])
+	{
+		printf("%d %s\n", i, cmd->str[i]);
+		i ++;
+	}
 }
 
-static void    free_cmd(t_simple_cmds  **cmd)
+static void	free_cmd(t_simple_cmds  **cmd)
 {
-    free(*cmd);
+	free(*cmd);
 }
 
-static void    free_minishell(t_minishell  **shell)
+static void	free_minishell(t_minishell  **shell)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while ((*shell)->paths[i])
-    {
-        free((*shell)->paths[i]);
-        i ++;
-    }
-    if ((*shell)->paths)
-        free((*shell)->paths);
-    free(*shell);
+	i = 0;
+	while ((*shell)->paths[i])
+	{
+		free((*shell)->paths[i]);
+		i ++;
+	}
+	if ((*shell)->paths)
+		free((*shell)->paths);
+	free(*shell);
 }
 
-void    free_all(t_minishell  **shell, t_simple_cmds  **cmd)
+void	free_all(t_minishell  **shell, t_simple_cmds  **cmd)
 {
-    t_simple_cmds   *tmp;
-    t_simple_cmds   *head;
+	t_simple_cmds	*tmp;
+	t_simple_cmds	*head;
 
-    if (!cmd || !(*cmd))
-        return ;
-    tmp = (*cmd);
-    head = (*cmd);
-    while (*cmd)
-    {
-        tmp = (*cmd)->next;
-        free_cmd(cmd);
-        *cmd = tmp;
-        if (*cmd == head)
-            break;
-    }
-    free_minishell(shell);
+	if (!cmd || !(*cmd))
+		return ;
+	tmp = (*cmd);
+	head = (*cmd);
+	while (*cmd)
+	{
+		tmp = (*cmd)->next;
+		free_cmd(cmd);
+		*cmd = tmp;
+		if (*cmd == head)
+			break;
+	}
+	free_minishell(shell);
 }
 
-int print_err(char  *msg)
+int	print_err(char  *msg)
 {
-    perror(msg);
-    return (1);
+	perror(msg);
+	return (1);
 }
