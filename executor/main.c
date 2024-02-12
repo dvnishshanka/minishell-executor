@@ -88,21 +88,21 @@ int	main(int argc, char **argv, char **env)
 		free(shell_1);
 		return (1);
 	}
-	shell_1->pipe_count = 2;
+	shell_1->pipe_count = 0;
 
-	simple_cmd_11->str[0] =  "ls";
-	simple_cmd_11->str[1] = "-al";
+	simple_cmd_11->str[0] =  "emacs" ;
+	simple_cmd_11->str[1] = NULL ;
 	simple_cmd_11->str[2] = NULL;
 	simple_cmd_11->str[3] = NULL;
 	simple_cmd_11->builtin = NULL;
 
-	simple_cmd_12->str[0] =  "grep";
-	simple_cmd_12->str[1] = "test";
+	simple_cmd_12->str[0] =  NULL;
+	simple_cmd_12->str[1] = NULL;
 	simple_cmd_12->str[2] = NULL;
 	simple_cmd_12->str[3] = NULL;
 	simple_cmd_12->builtin = NULL;
 
-	simple_cmd_13->str[0] =  "wc";
+	simple_cmd_13->str[0] =  NULL;
 	simple_cmd_13->str[1] = NULL;
 	simple_cmd_13->str[2] = NULL;
 	simple_cmd_13->str[3] = NULL;

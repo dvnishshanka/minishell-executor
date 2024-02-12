@@ -36,9 +36,13 @@ static int	execute_executables(t_minishell *minishell, t_simple_cmds *cmd)
 			if (access(pathname, X_OK) == 0)
 			{
 				if (execve(pathname, cmd->str, minishell->paths) == -1)
+				{
+					free(pathname);
 					return (print_err("Error occurred in execve."));
+				}
 			}
 			i++;
+			free(pathname);
 		}
 		if (execve(cmd->str[0], cmd->str, minishell->paths) == -1)
 			return (print_err("Error occurred in execve."));
