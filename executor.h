@@ -44,7 +44,7 @@ int	execute_commands(t_minishell *minishell, t_simple_cmds *cmd);
 // handle_pipes.c
 int	handle_pipes(t_minishell *minishell, t_simple_cmds *cmd);
 // pipe_utils.c
-void	close_fds(int (*fd)[2], int pipe_count);
+void	close_fds(int **fd, int pipe_count);
 void	wait_c_processes(pid_t *pid, int pipe_count);
 
 // other_utils.c

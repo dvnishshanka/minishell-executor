@@ -1,7 +1,7 @@
 #include "../executor.h"
 
 // Close all file descriptors used in pipes
-void	close_fds(int (*fd)[2], int pipe_count)
+void	close_fds(int **fd, int pipe_count)
 {
 	int	i;
 
