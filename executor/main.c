@@ -141,7 +141,7 @@ int	main(int argc, char **argv, char **env)
 
 // REDIRECTION TESTING
 	simple_cmd_11->str[0] =  "echo" ;
-	simple_cmd_11->str[1] = "hi" ;
+	simple_cmd_11->str[1] = "highj" ;
 	simple_cmd_11->str[2] = NULL;
 	simple_cmd_11->str[3] = NULL;
 	simple_cmd_11->builtin = echo;
