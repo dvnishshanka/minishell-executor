@@ -56,9 +56,15 @@ static int	execute_executables(t_minishell *minishell, t_simple_cmds *cmd)
 int	execute_commands(t_minishell *minishell, t_simple_cmds *cmd)
 {
 	if (cmd->builtin != NULL)
+	{
+		handle_redirections(cmd);
 		return (cmd->builtin(minishell, cmd));
+	}
 	else
+	{
+		handle_redirections(cmd);
 		return (execute_executables(minishell, cmd));
+	}
 }
 
 /*

@@ -15,7 +15,21 @@ void	print_cmd(t_simple_cmds *cmd)
 
 static void	free_cmd(t_simple_cmds  **cmd)
 {
+	t_lexer	*tmp;
+	t_lexer	*head;
+
+	head = (*cmd)->redirections;
+	tmp = head;
+	while (tmp)
+	{
+		tmp = (*cmd)->redirections->next;
+		free((*cmd)->redirections);
+		(*cmd)->redirections = tmp;
+		if (tmp == head)
+			break;
+	}
 	free(*cmd);
+
 }
 
 static void	free_minishell(t_minishell  **shell)

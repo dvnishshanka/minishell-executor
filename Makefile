@@ -12,6 +12,7 @@ BUILTIN_DIR = builtin/
 SRCS = 	$(EXECUTOR_DIR)main.c	\
 		$(EXECUTOR_DIR)executor.c	\
 		$(EXECUTOR_DIR)handle_pipes.c	\
+		$(EXECUTOR_DIR)redirections.c	\
 		$(EXECUTOR_DIR)pipe_utils.c	\
 		$(EXECUTOR_DIR)other_utils.c	\
 		$(EXECUTOR_DIR)env_utils.c	\

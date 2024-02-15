@@ -9,6 +9,11 @@ int	main(int argc, char **argv, char **env)
 	t_minishell		*shell_1;
 	t_simple_cmds	*simple_cmd_11;
 
+	// REDIRECTION TESTING
+	t_lexer	*redirections_1;
+
+	// REDIRECTION TESTING END
+
 	shell_1 = (t_minishell *)ft_calloc(2, sizeof(t_minishell));
 	if (!shell_1)
 		return (1);
@@ -31,6 +36,14 @@ int	main(int argc, char **argv, char **env)
 	if (!simple_cmd_11)
 	{
 		free(shell_1);
+		return (1);
+	}
+
+	redirections_1 = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
+	if (!redirections_1)
+	{
+		free(shell_1);
+		free(simple_cmd_11);
 		return (1);
 	}
 
@@ -90,21 +103,22 @@ int	main(int argc, char **argv, char **env)
 	}
 	shell_1->pipe_count = 0;
 
-	simple_cmd_11->str[0] =  "emacs" ;
-	simple_cmd_11->str[1] = NULL ;
+/*
+	simple_cmd_11->str[0] =  "ls" ;
+	simple_cmd_11->str[1] = "-la" ;
 	simple_cmd_11->str[2] = NULL;
 	simple_cmd_11->str[3] = NULL;
 	simple_cmd_11->builtin = NULL;
 
-	simple_cmd_12->str[0] =  NULL;
-	simple_cmd_12->str[1] = NULL;
+	simple_cmd_12->str[0] =  "grep";
+	simple_cmd_12->str[1] = "a";
 	simple_cmd_12->str[2] = NULL;
 	simple_cmd_12->str[3] = NULL;
 	simple_cmd_12->builtin = NULL;
 
-	simple_cmd_13->str[0] =  NULL;
-	simple_cmd_13->str[1] = NULL;
-	simple_cmd_13->str[2] = NULL;
+	simple_cmd_13->str[0] =  "tr";
+	simple_cmd_13->str[1] = "a-z";
+	simple_cmd_13->str[2] = "A-Z";
 	simple_cmd_13->str[3] = NULL;
 	simple_cmd_13->builtin = NULL;
 
@@ -123,6 +137,52 @@ int	main(int argc, char **argv, char **env)
 	simple_cmd_13->next = simple_cmd_11;
 	simple_cmd_13->prev = simple_cmd_12;
 		// PIPE TESTING END
+*/
+
+// REDIRECTION TESTING
+	simple_cmd_11->str[0] =  "echo" ;
+	simple_cmd_11->str[1] = "hi" ;
+	simple_cmd_11->str[2] = NULL;
+	simple_cmd_11->str[3] = NULL;
+	simple_cmd_11->builtin = echo;
+
+	redirections_1->str = "test.txt";
+	redirections_1->token = -1;
+	redirections_1->next = NULL;
+	redirections_1->prev = NULL;
+	simple_cmd_11->redirections = redirections_1;
+
+	simple_cmd_12->str[0] =  NULL;
+	simple_cmd_12->str[1] = NULL;
+	simple_cmd_12->str[2] = NULL;
+	simple_cmd_12->str[3] = NULL;
+	simple_cmd_12->builtin = NULL;
+	simple_cmd_12->redirections = NULL;
+
+	simple_cmd_13->str[0] =  NULL;
+	simple_cmd_13->str[1] = NULL;
+	simple_cmd_13->str[2] = NULL;
+	simple_cmd_13->str[3] = NULL;
+	simple_cmd_13->builtin = NULL;
+	simple_cmd_13->redirections = NULL;
+
+	simple_cmd_11->num_redirections = 0;
+	simple_cmd_11->hd_file_name = NULL;
+	simple_cmd_11->next = simple_cmd_12;
+	simple_cmd_11->prev = simple_cmd_13;
+
+	simple_cmd_12->num_redirections = 0;
+	simple_cmd_12->hd_file_name = NULL;
+	simple_cmd_12->next = simple_cmd_13;
+	simple_cmd_12->prev = simple_cmd_11;
+
+	simple_cmd_13->num_redirections = 0;
+	simple_cmd_13->hd_file_name = NULL;
+	simple_cmd_13->next = simple_cmd_11;
+	simple_cmd_13->prev = simple_cmd_12;
+
+// REDIRECTION TESTING END
+
 
 	// print_cmd(simple_cmd_11);
 	execute(shell_1, simple_cmd_11);
