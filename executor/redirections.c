@@ -67,7 +67,11 @@ int	handle_redirections(t_simple_cmds *cmd)
 	while (tmp)
 	{
 		if (redirect(&fd, tmp))
+		{
+			close(fd);
 			return (redirect(&fd, tmp));
+		}
+		close(fd);
 		tmp = tmp->next;
 		if (head == tmp)
 			break ;

@@ -11,6 +11,8 @@ int	main(int argc, char **argv, char **env)
 
 	// REDIRECTION TESTING
 	t_lexer	*redirections_1;
+	t_lexer	*redirections_2;
+
 
 	// REDIRECTION TESTING END
 
@@ -44,6 +46,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		free(shell_1);
 		free(simple_cmd_11);
+		return (1);
+	}
+	redirections_2 = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
+	if (!redirections_2)
+	{
+		free(shell_1);
+		free(simple_cmd_11);
+		free(redirections_1);
 		return (1);
 	}
 
@@ -148,8 +158,14 @@ int	main(int argc, char **argv, char **env)
 
 	redirections_1->str = "test.txt";
 	redirections_1->token = -1;
-	redirections_1->next = NULL;
-	redirections_1->prev = NULL;
+	redirections_1->next = redirections_2;
+	redirections_1->prev = redirections_2;
+
+	redirections_2->str = "test2.txt";
+	redirections_2->token = -2;
+	redirections_2->next = redirections_1;
+	redirections_2->prev = redirections_1;
+
 	simple_cmd_11->redirections = redirections_1;
 
 	simple_cmd_12->str[0] =  NULL;
